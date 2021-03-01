@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Tip Calculator</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+      form{
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 20px;
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <div class="container my-5">
+      <div class="row">
+        <div class="col-md-6 offset-md-3 col-12">
+          <h3 class="text-dark text-center">TIP CALCULATOR</h3>
+          <form>
+            <div class="form-group">
+              <input type="number" class="form-control" id="totalAmount" value="" placeholder="Enter Total Amount" />
+            </div>
+            <div class="form-group">
+              <div class="form-check">
+                <label class="form-check-label">
+                  <input type="radio" class="form-check-input" onclick="checkPercentage()" name="optradio" />Price in Percentage
+                </label>
+              </div>
+              <div class="form-check">
+                <label class="form-check-label">
+                  <input type="radio" class="form-check-input" onclick="checkFixed()" name="optradio" />Fixed Price
+                </label>
+              </div>
+            </div>
+            <div class="form-group" id="enterPercentageAmountBox">
+              <input type="number" class="form-control" id="percentagePrice" value="" placeholder="Enter Percentage" />
+            </div>
+            <div class="form-group" id="enterFixedAmountBox">
+              <input type="number" class="form-control" id="fixedPrice" value="" placeholder="Enter Fixed Price" />
+            </div>
+            <div class="form-group">
+              <input type="number" class="form-control" id="numberOfPeople" placeholder="Number of People" />
+            </div>
+            <div class="form-group">
+              <input type="number" class="form-control" value="" id="payByEachMember" placeholder="Pay By Each Members" disabled />
+            </div>
+            <div class="form-group">
+              <a href="javascript:void()" class="btn btn-primary" id="showResult" onclick="showResult()">Show Result</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.getElementById("enterPercentageAmountBox").style.display = "none";
+      document.getElementById("enterFixedAmountBox").style.display = "none";
+      
+      function checkPercentage() {
+      
+        var ifPercentagePriceChecked = document.getElementById("percentagePrice").checked = true;
+        if(ifPercentagePriceChecked){
+          document.getElementById("enterPercentageAmountBox").style.display = "block";
+          document.getElementById("enterFixedAmountBox").style.display = "none";
+        }
+      
+      }
+
+      function checkFixed() {
+
+        var ifFixedPriceChecked = document.getElementById("fixedPrice").checked = false;
+        if(!ifFixedPriceChecked){
+          document.getElementById("enterFixedAmountBox").style.display = "block";
+          document.getElementById("enterPercentageAmountBox").style.display = "none";
+        }
+      
+      }
+
+      function showResult() {
+
+        var totalAmount = document.getElementById("totalAmount").value;
+
+        var numberOfPeople = document.getElementById("numberOfPeople").value;
+        
+        if(document.getElementById("percentagePrice").value != ""){
+          var percentagePrice = document.getElementById("percentagePrice").value;
+          var calculatedPercentage = ((totalAmount*percentagePrice)/100);
+          var dividedValue = (calculatedPercentage/numberOfPeople);
+        }
+
+        if(document.getElementById("fixedPrice").value != "" ){
+          var fixedPrice = document.getElementById("fixedPrice").value;
+          var dividedValue = (fixedPrice/numberOfPeople);
+        }
+
+        document.getElementById("payByEachMember").value = dividedValue;
+        
+        if(totalAmount == "" || percentagePrice == "" || numberOfPeople == ""){
+          alert("Please Complete The Form");
+        }
+        else{
+          //alert("Total Amount: " + totalAmount + " - Percentage Price: " + percentagePrice + " - Calculated Percentage: " + calculatedPercentage + " - Pay By Each Person: " + dividedValue);
+        }
+
+      }
+
+      
+    </script>
+
+  </body>
+</html>
